@@ -31,13 +31,15 @@ module tb
     keep_insert   <= 4'b0111;
     #105;
     valid_in      <= 1;
-    valid_insert  <= 1;
+    valid_insert  <= 0;
     #10;
     valid_insert  <= 0;
     data_in       <= 32'hEEFF_0011;
     #10;
+    valid_insert  <= 1;
     data_in       <= 32'h2233_4455;
     #10;
+    valid_insert  <= 0;
     data_in       <= 32'h6677_8899;
     #10;
     data_in       <= 32'h00AA_BBCC;
