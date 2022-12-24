@@ -26,18 +26,18 @@ module axi_stream_insert_header
     );
   reg                         last_reg;
 
-  always @(posedge clk) begin
+  always @(*) begin
     if(!rst_n) begin
-      ready_in     <= 1;
-      ready_insert <= 1;
+      ready_in     = 1;
+      ready_insert = 1;
     end
     else if(last_reg) begin //the cycle after last_in, slave is not ready
-      ready_in     <= 0;
-      ready_insert <= 0;
+      ready_in     = 0;
+      ready_insert = 0;
     end
     else begin
-      ready_in     <= 1;
-      ready_insert <= 1;
+      ready_in     = 1;
+      ready_insert = 1;
     end
   end
 
