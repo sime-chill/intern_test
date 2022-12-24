@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="96750fs"></ZoomStartTime>
+      <ZoomEndTime time="172651fs"></ZoomEndTime>
+      <Cursor1Time time="111550fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/last_in" type="logic">
+      <obj_property name="ElementShortName">last_in</obj_property>
+      <obj_property name="ObjectShortName">last_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/data_in" type="array">
+      <obj_property name="ElementShortName">data_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/header_insert" type="array">
+      <obj_property name="ElementShortName">header_insert[31:0]</obj_property>
+      <obj_property name="ObjectShortName">header_insert[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/keep_in" type="array">
+      <obj_property name="ElementShortName">keep_in[3:0]</obj_property>
+      <obj_property name="ObjectShortName">keep_in[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/keep_insert" type="array">
+      <obj_property name="ElementShortName">keep_insert[3:0]</obj_property>
+      <obj_property name="ObjectShortName">keep_insert[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DATA_WD" type="array">
+      <obj_property name="ElementShortName">DATA_WD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA_WD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DATA_BYTE_WD" type="array">
+      <obj_property name="ElementShortName">DATA_BYTE_WD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA_BYTE_WD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/data_out" type="array">
+      <obj_property name="ElementShortName">data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/valid_out" type="logic">
+      <obj_property name="ElementShortName">valid_out</obj_property>
+      <obj_property name="ObjectShortName">valid_out</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/keep_out" type="array">
+      <obj_property name="ElementShortName">keep_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">keep_out[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/last_out" type="logic">
+      <obj_property name="ElementShortName">last_out</obj_property>
+      <obj_property name="ObjectShortName">last_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/last_next" type="logic">
+      <obj_property name="ElementShortName">last_next</obj_property>
+      <obj_property name="ObjectShortName">last_next</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/last_reg" type="logic">
+      <obj_property name="ElementShortName">last_reg</obj_property>
+      <obj_property name="ObjectShortName">last_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/header_succ" type="logic">
+      <obj_property name="ElementShortName">header_succ</obj_property>
+      <obj_property name="ObjectShortName">header_succ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/valid_insert" type="logic">
+      <obj_property name="ElementShortName">valid_insert</obj_property>
+      <obj_property name="ObjectShortName">valid_insert</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/ready_insert" type="logic">
+      <obj_property name="ElementShortName">ready_insert</obj_property>
+      <obj_property name="ObjectShortName">ready_insert</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/ready_out" type="logic">
+      <obj_property name="ElementShortName">ready_out</obj_property>
+      <obj_property name="ObjectShortName">ready_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/data_in_succ" type="logic">
+      <obj_property name="ElementShortName">data_in_succ</obj_property>
+      <obj_property name="ObjectShortName">data_in_succ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/valid_in" type="logic">
+      <obj_property name="ElementShortName">valid_in</obj_property>
+      <obj_property name="ObjectShortName">valid_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/ready_in" type="logic">
+      <obj_property name="ElementShortName">ready_in</obj_property>
+      <obj_property name="ObjectShortName">ready_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/DUT/last_in" type="logic">
+      <obj_property name="ElementShortName">last_in</obj_property>
+      <obj_property name="ObjectShortName">last_in</obj_property>
+   </wvobject>
+</wave_config>
