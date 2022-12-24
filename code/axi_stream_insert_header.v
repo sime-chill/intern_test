@@ -23,14 +23,21 @@ module axi_stream_insert_header
     input      [DATA_WD - 1 : 0]      header_insert,
     input      [DATA_BYTE_WD - 1 : 0] keep_insert,
     output reg                        ready_insert
-  );
+    );
+  reg                         last_reg;
 
   always @(posedge clk) begin
     if(!rst_n) begin
       ready_in     <= 1;
       ready_insert <= 1;
     end
+    else if(last_reg) begin //the cycle after last_in, slave is not ready
+      ready_in     <= 0;
+      ready_insert <= 0;
+    end
     else begin
+      ready_in     <= 1;
+      ready_insert <= 1;
     end
   end
 
@@ -80,8 +87,6 @@ module axi_stream_insert_header
       endcase
     end
   end
-
-  reg                         last_reg;
 
   always @(*) begin
     if(header_succ & data_in_succ) begin            //exchange header
