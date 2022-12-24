@@ -34,9 +34,6 @@ module axi_stream_insert_header
     end
   end
 
-  wire [7 : 0]                data_b3, data_b2, data_b1, data_b0; //these slices can be reduced
-  assign {data_b3, data_b2, data_b1, data_b0}         = data_in;
-
   reg  [DATA_WD - 1 : 0]      data_reg;
   always @(posedge clk) begin
     if(!rst_n) data_reg <= 0;
@@ -49,16 +46,13 @@ module axi_stream_insert_header
     else keep_reg       <= keep_in;
   end
 
-  wire [7 : 0]                header_b3, header_b2, header_b1, header_b0;
-  assign {header_b3, header_b2, header_b1, header_b0} = header_insert;
-
   wire                        header_succ;
-  assign header_succ                                  = ready_insert & valid_insert;
+  assign header_succ  = ready_insert & valid_insert;
   wire                        data_in_succ;
-  assign data_in_succ                                 = ready_in & valid_in & ready_out; //only the data can move out, new data come in
-  assign valid_out                                    = data_in_succ | last_out; //the cycle after the last_in should have valid_out
+  assign data_in_succ = ready_in & valid_in & ready_out; //only the data can move out, new data come in
+  assign valid_out    = data_in_succ | last_out;         //the cycle after the last_in should have valid_out
 
-  reg  [2 : 0]                count;                                     //the number of exchange bytes
+  reg  [2 : 0]                count;       //the number of exchange bytes
   reg                         last_next;
 
   always @(posedge clk) begin //when exchange header byte, set the count and reset the count when exchange next time
@@ -95,22 +89,22 @@ module axi_stream_insert_header
       last_next = 0;
       case (keep_insert)
         4'b1111 : begin
-          data_out = {header_b3, header_b2, header_b1, header_b0};
+          data_out = header_insert;
         end
         4'b0111 : begin
-          data_out = {header_b2, header_b1, header_b0, data_b3};
+          data_out = {header_insert[23 : 0], data_in[31 : 24]};
         end
         4'b0011 : begin
-          data_out = {header_b1, header_b0, data_b3, data_b2};
+          data_out = {header_insert[15 : 0], data_in[31 : 16]};
         end
         4'b0001 : begin
-          data_out = {header_b0, data_b3, data_b2, data_b1};
+          data_out = {header_insert[7 : 0], data_in[31 : 8]};
         end
         4'b0000 : begin
-          data_out = {data_b3, data_b2, data_b1, data_b0};
+          data_out = data_in;
         end
         default : begin
-          data_out = data_out;
+          data_out = 32'b0;
         end
       endcase
     end
@@ -282,7 +276,7 @@ module axi_stream_insert_header
     else if(last_in & last_next) last_reg <= last_in;
     else last_reg                         <= 0;
   end
-  assign last_out                                     = last_next ? last_reg : last_in;
+  assign last_out     = last_next ? last_reg : last_in;
 
 
 endmodule
