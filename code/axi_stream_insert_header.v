@@ -24,26 +24,41 @@ module axi_stream_insert_header
     input      [DATA_BYTE_WD - 1 : 0] keep_insert,
     output reg                        ready_insert
   );
+
   reg                         last_reg;
 
-  always @(*) begin
-    if(!rst_n) ready_insert        = 1;
-    else if(last_reg) ready_insert = 0;
-    else ready_insert              = 1;
-  end
-
-  reg                         valid_insert_reg; //this signal will keep high when valid_out is high
+  reg                         valid_insert_reg; //this signal will keep high from valid_insert is high to valid_out is low
   always @(posedge valid_insert or negedge valid_out) begin
     if(valid_insert) valid_insert_reg   <= 1;
-    else if(valid_out) valid_insert_reg <= 0;
+    else if(valid_out) valid_insert_reg <= 0; //when data moves out, valid_out is high
     else valid_insert_reg               <= 0;
   end
 
+  wire                        header_succ;
+  assign header_succ  = ready_insert & valid_insert;
+  wire                        data_in_succ;
+  assign data_in_succ = ready_in & valid_in & ready_out; //only the data can move out, new data come in
+  assign valid_out    = data_in_succ | last_out;         //the cycle after the last_in should have valid_out
+
+  reg                         insert_shake_once; //to confirm that insert_ready is high only 1 cycle
+  always @(posedge clk) begin
+    if(!rst_n) insert_shake_once           <= 0;
+    else if(header_succ) insert_shake_once <= 1;
+    else if(last_out) insert_shake_once    <= 0;
+  end
+
+  always @(*) begin //assert ready_insert
+    if(!rst_n) ready_insert                             = 1;
+    else if(~valid_in | insert_shake_once) ready_insert = 0;
+    else if(last_reg) ready_insert                      = 0;
+    else ready_insert                                   = 1;
+  end
+
   always @(*) begin //assert ready_in
-    if(!rst_n) ready_in             = 1;
+    if(!rst_n) ready_in                                  = 1;
     else if(~(valid_insert | valid_insert_reg)) ready_in = 0;
-    else if(last_reg) ready_in      = 0;
-    else ready_in                   = 1;
+    else if(last_reg) ready_in                           = 0;
+    else ready_in                                        = 1;
   end
 
   reg  [DATA_WD - 1 : 0]      data_reg;
@@ -58,13 +73,7 @@ module axi_stream_insert_header
     else keep_reg       <= keep_in;
   end
 
-  wire                        header_succ;
-  assign header_succ  = ready_insert & valid_insert;
-  wire                        data_in_succ;
-  assign data_in_succ = ready_in & valid_in & ready_out; //only the data can move out, new data come in
-  assign valid_out    = data_in_succ | last_out;         //the cycle after the last_in should have valid_out
-
-  reg  [2 : 0]                count;           //the number of exchange bytes
+  reg  [2 : 0]                count;            //the number of exchange bytes
   reg                         last_next;
 
   always @(posedge clk) begin //when exchange header byte, set the count and reset the count when exchange next time
