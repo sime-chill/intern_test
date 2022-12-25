@@ -27,11 +27,11 @@ module axi_stream_insert_header
 
   reg                         last_reg;
 
-  reg                         valid_insert_reg; //this signal will keep high from valid_insert is high to valid_out is low
-  always @(posedge valid_insert or negedge valid_out) begin
-    if(valid_insert) valid_insert_reg   <= 1;
-    else if(valid_out) valid_insert_reg <= 0; //when data moves out, valid_out is high
-    else valid_insert_reg               <= 0;
+  reg                         valid_insert_reg;  //this signal will keep high from valid_insert is high to valid_out is low
+  always @(posedge clk) begin
+    if(!rst_n) valid_insert_reg            <= 0;
+    else if(valid_insert) valid_insert_reg <= 1;
+    else if(last_out) valid_insert_reg     <= 0;
   end
 
   wire                        header_succ;
@@ -73,7 +73,7 @@ module axi_stream_insert_header
     else keep_reg       <= keep_in;
   end
 
-  reg  [2 : 0]                count;            //the number of exchange bytes
+  reg  [2 : 0]                count;             //the number of exchange bytes
   reg                         last_next;
 
   always @(posedge clk) begin //when exchange header byte, set the count and reset the count when exchange next time
