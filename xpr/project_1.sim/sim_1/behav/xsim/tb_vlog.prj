@@ -1,7 +1,9 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
 "../../../../../code/axi_stream_insert_header.v" \
-"../../../../../code/tb.v" \
+
+sv xil_defaultlib  \
+"../../../../../code/tb.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

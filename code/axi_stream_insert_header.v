@@ -56,6 +56,7 @@ module axi_stream_insert_header
 
   always @(*) begin //assert ready_in
     if(!rst_n) ready_in                                  = 1;
+    else if(~ready_out) ready_in                         = 0;
     else if(~(valid_insert | valid_insert_reg)) ready_in = 0;
     else if(last_reg) ready_in                           = 0;
     else ready_in                                        = 1;
@@ -152,17 +153,17 @@ module axi_stream_insert_header
             last_next = 1;
             keep_out  = 4'b1111;
           end
-          4'b0111 : begin
+          4'b1110 : begin
             data_out  = {data_reg[15 : 0], data_in[23 : 8]};
             last_next = 1;
             keep_out  = 4'b1111;
           end
-          4'b0011 : begin
+          4'b1100 : begin
             data_out  = {data_reg[15 : 0], data_in[15 : 0]};
             last_next = 1;
             keep_out  = 4'b1111;
           end
-          4'b0001 : begin
+          4'b1000 : begin
             data_out  = {data_reg[15 : 0], data_in[7 : 0], 8'b0};
             last_next = 0;
             keep_out  = 4'b1110;
@@ -181,17 +182,17 @@ module axi_stream_insert_header
             keep_out  = 4'b1111;
             last_next = 1;
           end
-          4'b0111 : begin
+          4'b1110 : begin
             data_out  = {data_reg[7 : 0], data_in[23 : 0]};
             keep_out  = 4'b1111;
             last_next = 1;
           end
-          4'b0011 : begin
+          4'b1100 : begin
             data_out  = {data_reg[7 : 0], data_in[15 : 0], 8'b0};
             keep_out  = 4'b1110;
             last_next = 0;
           end
-          4'b0001 : begin
+          4'b1000 : begin
             data_out  = {data_reg[7 : 0], data_in[7 : 0], 16'b0};
             keep_out  = 4'b1100;
             last_next = 0;
@@ -295,7 +296,7 @@ module axi_stream_insert_header
     else if(last_in & last_next) last_reg <= last_in;
     else last_reg                         <= 0;
   end
-  assign last_out     = last_next ? last_reg : last_in;
+  assign last_out     = last_next ? last_reg : data_in_succ ? last_in : 0;
 
 
 endmodule

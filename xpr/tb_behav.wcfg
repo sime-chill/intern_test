@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="115750fs"></ZoomStartTime>
-      <ZoomEndTime time="192851fs"></ZoomEndTime>
-      <Cursor1Time time="126050fs"></Cursor1Time>
+      <ZoomStartTime time="130100fs"></ZoomStartTime>
+      <ZoomEndTime time="208001fs"></ZoomEndTime>
+      <Cursor1Time time="171900fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="85"></ValueColumnWidth>
+      <ValueColumnWidth column_width="77"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="22" />
    <wvobject fp_name="/tb/clk" type="logic">
@@ -59,6 +59,10 @@
       <obj_property name="ElementShortName">header_insert[31:0]</obj_property>
       <obj_property name="ObjectShortName">header_insert[31:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/valid_insert" type="logic">
+      <obj_property name="ElementShortName">valid_insert</obj_property>
+      <obj_property name="ObjectShortName">valid_insert</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/keep_insert" type="array">
       <obj_property name="ElementShortName">keep_insert[3:0]</obj_property>
       <obj_property name="ObjectShortName">keep_insert[3:0]</obj_property>
@@ -89,13 +93,13 @@
       <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/DUT/count" type="array">
+      <obj_property name="ElementShortName">count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">count[2:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/DUT/valid_insert_reg" type="logic">
       <obj_property name="ElementShortName">valid_insert_reg</obj_property>
       <obj_property name="ObjectShortName">valid_insert_reg</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/valid_insert" type="logic">
-      <obj_property name="ElementShortName">valid_insert</obj_property>
-      <obj_property name="ObjectShortName">valid_insert</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/DUT/last_next" type="logic">
       <obj_property name="ElementShortName">last_next</obj_property>
@@ -108,10 +112,6 @@
    <wvobject fp_name="/tb/DUT/header_succ" type="logic">
       <obj_property name="ElementShortName">header_succ</obj_property>
       <obj_property name="ObjectShortName">header_succ</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/DUT/header_succ_reg" type="logic">
-      <obj_property name="ElementShortName">header_succ_reg</obj_property>
-      <obj_property name="ObjectShortName">header_succ_reg</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/DUT/ready_insert" type="logic">
       <obj_property name="ElementShortName">ready_insert</obj_property>
