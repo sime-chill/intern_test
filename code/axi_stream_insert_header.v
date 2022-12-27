@@ -48,15 +48,13 @@ module axi_stream_insert_header
   end
 
   always @(*) begin //assert ready_insert
-    if(!rst_n) ready_insert                             = 1;
-    else if(~valid_in | insert_shake_once) ready_insert = 0;
-    else if(last_reg) ready_insert                      = 0;
-    else ready_insert                                   = 1;
+    if(~valid_in | insert_shake_once) ready_insert = 0;
+    else if(last_reg) ready_insert                 = 0;
+    else ready_insert                              = 1;
   end
 
   always @(*) begin //assert ready_in
-    if(!rst_n) ready_in                                  = 1;
-    else if(~ready_out) ready_in                         = 0;
+    if(~ready_out) ready_in                              = 0;
     else if(~(valid_insert | valid_insert_reg)) ready_in = 0;
     else if(last_reg) ready_in                           = 0;
     else ready_in                                        = 1;
@@ -77,27 +75,28 @@ module axi_stream_insert_header
   reg  [2 : 0]                count;             //the number of exchange bytes
   reg                         last_next;
 
+  //parameter
   always @(posedge clk) begin //when exchange header byte, set the count and reset the count when exchange next time
     if(!rst_n) count <= 0;
     else if(header_succ & data_in_succ) begin
       case (keep_insert)
         4'b1111 : begin
-          count = 4;
+          count <= 4;
         end
         4'b0111 : begin
-          count = 3;
+          count <= 3;
         end
         4'b0011 : begin
-          count = 2;
+          count <= 2;
         end
         4'b0001 : begin
-          count = 1;
+          count <= 1;
         end
         4'b0000 : begin
-          count = 0;
+          count <= 0;
         end
         default : begin
-          count = 0;
+          count <= 0;
         end
       endcase
     end
